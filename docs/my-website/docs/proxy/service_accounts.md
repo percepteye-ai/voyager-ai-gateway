@@ -7,13 +7,13 @@ import Image from '@theme/IdealImage';
 Use this if you want to create Virtual Keys that are not owned by a specific user but instead created for production projects
 
 Why use a service account key?
-  - Prevent key from being deleted when user is deleted.
-  - Apply team limits, not team member limits to key.
+
+- Prevent key from being deleted when user is deleted.
+- Apply team limits, not team member limits to key.
 
 ## Usage
 
 Use the `/key/service-account/generate` endpoint to generate a service account key.
-
 
 ```bash
 curl -L -X POST 'http://localhost:4000/key/service-account/generate' \
@@ -26,27 +26,25 @@ curl -L -X POST 'http://localhost:4000/key/service-account/generate' \
 
 ## Example - require `user` param for all service account requests
 
-
 ### 1. Set settings for Service Accounts
 
 Set `service_account_settings` if you want to create settings that only apply to service account keys
 
 ```yaml
 general_settings:
-    service_account_settings: 
-        enforced_params: ["user"] # this means the "user" param is enforced for all requests made through any service account keys
+  service_account_settings:
+    enforced_params: ["user"] # this means the "user" param is enforced for all requests made through any service account keys
 ```
 
-### 2. Create Service Account Key on LiteLLM Proxy Admin UI
+### 2. Create Service Account Key on Voyager AI Gateway Admin UI
 
 <Image img={require('../../img/create_service_account.png')} />
 
-### 3. Test Service Account Key 
+### 3. Test Service Account Key
 
 <Tabs>
 
 <TabItem value="Unsuccessful call" label="Unsuccessful call">
-
 
 ```shell
 curl --location 'http://localhost:4000/chat/completions' \
@@ -79,7 +77,6 @@ Expected Response
 </TabItem>
 
 <TabItem value="Successful call" label="Successful call">
-
 
 ```shell
 curl --location 'http://localhost:4000/chat/completions' \
@@ -131,4 +128,3 @@ Expected Response
 </TabItem>
 
 </Tabs>
-

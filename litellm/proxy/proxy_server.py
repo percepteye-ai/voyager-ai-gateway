@@ -479,16 +479,16 @@ else:
 ui_link = f"{server_root_path}/ui/"
 model_hub_link = f"{server_root_path}/ui/model_hub_table"
 ui_message = (
-    f"👉 [```LiteLLM Admin Panel on /ui```]({ui_link}). Create, Edit Keys with SSO"
+    f"👉 [```Voyager AI Gateway Admin Panel on /ui```]({ui_link}). Create, Edit Keys with SSO"
 )
-ui_message += "\n\n💸 [```LiteLLM Model Cost Map```](https://models.litellm.ai/)."
+ui_message += "\n\n💸 [```Voyager AI Gateway Model Cost Map```](https://models.litellm.ai/)."
 
-ui_message += f"\n\n🔎 [```LiteLLM Model Hub```]({model_hub_link}). See available models on the proxy. [**Docs**](https://docs.litellm.ai/docs/proxy/model_hub)"
+ui_message += f"\n\n🔎 [```Voyager AI Gateway Model Hub```]({model_hub_link}). See available models on the proxy. [**Docs**](https://docs.litellm.ai/docs/proxy/model_hub)"
 
 custom_swagger_message = "[**Customize Swagger Docs**](https://docs.litellm.ai/docs/proxy/enterprise#swagger-docs---custom-routes--branding)"
 
 ### CUSTOM BRANDING [ENTERPRISE FEATURE] ###
-_title = os.getenv("DOCS_TITLE", "LiteLLM API") if premium_user else "LiteLLM API"
+_title = os.getenv("DOCS_TITLE", "Voyager AI Gateway API") if premium_user else "Voyager AI Gateway API"
 _description = (
     os.getenv(
         "DOCS_DESCRIPTION",
