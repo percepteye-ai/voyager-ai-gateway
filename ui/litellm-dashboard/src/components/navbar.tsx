@@ -134,7 +134,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <Link href="/" className="flex items-center">
               <img
                 src={imageUrl}
-                alt="LiteLLM Brand"
+                alt="Voyager AI Brand"
                 className="h-8 w-auto"
               />
             </Link>
@@ -142,15 +142,6 @@ const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right side nav items */}
           <div className="flex items-center space-x-5 ml-auto">
-            <a
-              href="https://docs.litellm.ai/docs/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Docs
-            </a>
-
             {!isPublicPage && (
             <Dropdown 
               menu={{ 

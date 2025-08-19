@@ -10,7 +10,7 @@ html_form = f"""
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LiteLLM Login</title>
+    <title>Voyager AI Gateway Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {{
@@ -34,15 +34,8 @@ html_form = f"""
             max-width: 100%;
         }}
         
-        .logo-container {{
-            text-align: center;
-            margin-bottom: 30px;
-        }}
-        
-        .logo {{
-            font-size: 24px;
-            font-weight: 600;
-            color: #1e293b;
+        .logo img {{
+            width: 65%;
         }}
         
         h2 {{
@@ -191,11 +184,15 @@ html_form = f"""
     <form action="{url_to_redirect_to}" method="post">
         <div class="logo-container">
             <div class="logo">
-                Voyager Ai Gateway
+                <img
+                src="/get_image"
+                alt="Voyager AI Brand"
+                className="h-8 w-auto"
+              />
             </div>
         </div>
         <h2>Login</h2>
-        <p class="subtitle">Access your Voyager Ai Gateway Admin UI.</p>
+        <p class="subtitle">Access your Voyager AI Gateway Admin UI</p>
         <label for="username">Username<span class="required">*</span></label>
         <input type="text" id="username" name="username" required placeholder="Enter your username" autocomplete="username">
         
