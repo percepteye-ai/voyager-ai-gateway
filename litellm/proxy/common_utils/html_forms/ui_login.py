@@ -33,6 +33,10 @@ html_form = f"""
             width: 450px;
             max-width: 100%;
         }}
+
+        .logo {{
+            text-align: center;
+        }}
         
         .logo img {{
             width: 65%;

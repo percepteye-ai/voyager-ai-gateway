@@ -622,16 +622,6 @@ const Settings: React.FC<SettingsPageProps> = ({
         }}
         footer={null}
       >
-        <a
-          href="https://docs.litellm.ai/docs/proxy/logging"
-          className="mb-8 mt-4"
-          target="_blank"
-          style={{ color: "blue" }}
-        >
-          {" "}
-          LiteLLM Docs: Logging
-        </a>
-
         <Form
           form={addForm}
           onFinish={addNewCallbackCall}

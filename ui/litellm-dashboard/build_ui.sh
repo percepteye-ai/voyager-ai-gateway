@@ -23,6 +23,9 @@ fi
 echo "Contents of ui_colors.json:"
 cat ui_colors.json
 
+# Clear previous build artifacts
+rm -rf ./out node_modules/.cache
+
 # Run npm build
 npm run build
 

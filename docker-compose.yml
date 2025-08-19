@@ -12,7 +12,7 @@ services:
     ports:
       - "4000:4000"
     environment:
-      DATABASE_URL: "postgresql://gateway_app:dbpassword9090@db:5432/voyager_ai_gw"
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/voyager_ai_gw"
       STORE_MODEL_IN_DB: "True"
     env_file:
       - .env
@@ -35,8 +35,8 @@ services:
     container_name: voyager_ai_gw_db
     environment:
       POSTGRES_DB: voyager_ai_gw
-      POSTGRES_USER: gateway_app
-      POSTGRES_PASSWORD: dbpassword9090
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "5432:5432"
     volumes:
