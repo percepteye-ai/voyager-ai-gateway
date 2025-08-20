@@ -11,9 +11,30 @@ You will be able to access the service over **HTTP and HTTPS** (self-signed cert
 - Install Docker & Docker Compose:
 
   ```bash
-  sudo apt update
-  sudo apt install -y docker.io
-  sudo apt install -y docker-compose-plugin
+  # Update
+  sudo apt-get update
+  sudo apt-get install -y ca-certificates curl gnupg lsb-release
+
+  # Setup Docker GPG key
+  sudo install -m 0755 -d /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+  # Add Docker repo
+  echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+    https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  # Install Docker + Compose
+  sudo apt-get update
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  # Verify
+  docker --version
+  docker compose version
+
   sudo usermod -aG docker $USER
   ```
 
