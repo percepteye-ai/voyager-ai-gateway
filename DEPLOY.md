@@ -127,7 +127,7 @@ When new code is pushed:
 
 ```bash
 cd voyager-ai-gateway
-git pull origin main
+git pull origin release/prod
 sudo docker compose up -d --build
 ```
 
