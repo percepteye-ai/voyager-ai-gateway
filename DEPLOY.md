@@ -67,7 +67,7 @@ You will be able to access the service over **HTTP and HTTPS** (self-signed cert
 ## 2. Clone the repository on the VM
 
 ```bash
-git clone git@github.com:percepteye-ai/voyager-ai-gateway.git
+git clone -b release/prod git@github.com:percepteye-ai/voyager-ai-gateway.git
 cd voyager-ai-gateway
 ```
 
@@ -89,6 +89,8 @@ Build and start all services (Voyager AI Gateway app, db, nginx):
 
 ```bash
 sudo docker compose up -d --build
+
+docker compose logs -f
 ```
 
 ---

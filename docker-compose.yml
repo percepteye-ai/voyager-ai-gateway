@@ -18,6 +18,8 @@ services:
       - .env
     depends_on:
       - db
+    expose:
+      - "4000"
     healthcheck:
       test:
         [
