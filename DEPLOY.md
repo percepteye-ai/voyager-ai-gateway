@@ -88,7 +88,7 @@ mv .env voyager-ai-gateway/
 Build and start all services (Voyager AI Gateway app, db, nginx):
 
 ```bash
-sudo docker compose up -d --build
+sudo docker compose -f docker-compose.prod.yml up -d --build
 
 docker compose logs -f
 ```
