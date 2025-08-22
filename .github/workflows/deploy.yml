@@ -27,6 +27,7 @@ jobs:
             git fetch --all
             git reset --hard origin/release/prod
             docker compose -f docker-compose.prod.yml down
+            docker system prune -af
             docker compose -f docker-compose.prod.yml build --no-cache
             docker compose -f docker-compose.prod.yml up -d
           EOF

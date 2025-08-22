@@ -10,35 +10,35 @@ You will be able to access the service over **HTTP and HTTPS** (self-signed cert
 - A running **GCP VM** (at least 2 vCPU & 4 GB RAM).
 - Install Docker & Docker Compose:
 
-  ```bash
-  # Update
-  sudo apt-get update
-  sudo apt-get install -y ca-certificates curl gnupg lsb-release
+```bash
+# Update
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
 
-  # Setup Docker GPG key
-  sudo install -m 0755 -d /etc/apt/keyrings
-  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+# Setup Docker GPG key
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-  # Add Docker repo
-  echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-    https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Add Docker repo
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+  https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-  # Install Docker + Compose
-  sudo apt-get update
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# Install Docker + Compose
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-  # Verify
-  docker --version
-  docker compose version
+# Verify
+docker --version
+docker compose version
 
-  sudo usermod -aG docker $USER
-  ```
+sudo usermod -aG docker $USER
+```
 
-  > ⚠️ Logout/login again to apply the docker group changes.
+> ⚠️ Logout/login again to apply the docker group changes.
 
 - **Firewall rules**: Allow HTTP (80) and HTTPS (443) traffic (Alternatively, this can be enabled via an option when creating the instance):
 
@@ -107,17 +107,17 @@ docker compose logs -f
 
 - From curl (bypassing SSL verification):
 
-  ```bash
-  curl --insecure --location 'https://<EXTERNAL_IP>/chat/completions' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Bearer <API_KEY>' \
-  --data '{
-    "model": "gpt-5",
-    "messages": [
-      {"role": "user", "content": "what llm are you"}
-    ]
-  }'
-  ```
+```bash
+curl --insecure --location 'https://<EXTERNAL_IP>/chat/completions' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <API_KEY>' \
+--data '{
+  "model": "gpt-5",
+  "messages": [
+    {"role": "user", "content": "what llm are you"}
+  ]
+}'
+```
 
 ---
 
@@ -163,9 +163,12 @@ sudo docker compose up -d --build
 - **Container unhealthy** → check that the app binds to `0.0.0.0` and the healthcheck path in `docker-compose.yml` is valid.
 - **.env not loading** → ensure it’s in the project root and referenced in `docker-compose.yml`.
 - **Disk space issues** → prune Docker resources:
-  ```bash
-  sudo docker system prune -af --volumes
-  ```
+
+```bash
+sudo docker system prune -af
+# Warning, the following even removes the volumes that are not being used by running containers
+sudo docker system prune -af --volumes
+```
 
 ---
 
