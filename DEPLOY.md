@@ -40,7 +40,7 @@ You will be able to access the service over **HTTP and HTTPS** (self-signed cert
 
   > ⚠️ Logout/login again to apply the docker group changes.
 
-- **Firewall rules**: Allow HTTP (80) and HTTPS (443) traffic:
+- **Firewall rules**: Allow HTTP (80) and HTTPS (443) traffic (Alternatively, this can be enabled via an option when creating the instance):
 
   ```bash
   gcloud compute firewall-rules create allow-http-https \
