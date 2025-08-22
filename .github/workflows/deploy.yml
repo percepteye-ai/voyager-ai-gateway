@@ -26,7 +26,7 @@ jobs:
             cd ~/voyager-ai-gateway
             git fetch --all
             git reset --hard origin/release/prod
-            sudo docker compose -f docker-compose.prod.yml down
-            sudo docker compose -f docker-compose.prod.yml build --no-cache
-            sudo docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.prod.yml down
+            docker compose -f docker-compose.prod.yml build --no-cache
+            docker compose -f docker-compose.prod.yml up -d
           EOF
