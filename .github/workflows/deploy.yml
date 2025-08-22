@@ -2,9 +2,10 @@ name: Deploy to GCP VM
 
 # Trigger workflow only on push to release/prod branch
 on:
+  workflow_dispatch:
   push:
-    branches: ["release/prod"]
-
+    branches:
+      - release/prod
 jobs:
   deploy:
     runs-on: ubuntu-latest
