@@ -188,15 +188,11 @@ html_form = f"""
     <form action="{url_to_redirect_to}" method="post">
         <div class="logo-container">
             <div class="logo">
-                <img
-                src="/get_image"
-                alt="Voyager AI Brand"
-                className="h-8 w-auto"
-              />
+                Voyager AI Gateway
             </div>
         </div>
         <h2>Login</h2>
-        <p class="subtitle">Access your Voyager AI Gateway Admin UI</p>
+        <p class="subtitle">Access your Voyager AI Gateway Admin UI.</p>
         <label for="username">Username<span class="required">*</span></label>
         <input type="text" id="username" name="username" required placeholder="Enter your username" autocomplete="username">
         

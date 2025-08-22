@@ -315,7 +315,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
           <Title level={4} className="mb-0 text-blue-900">OpenAI Responses API Integration</Title>
         </div>
         <Text className="text-blue-700">
-          Connect OpenAI Responses API to your LiteLLM MCP server for seamless tool integration
+          Connect OpenAI Responses API to your Voyager AI MCP server for seamless tool integration
         </Text>
       </div>
       
@@ -514,7 +514,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
             Connect to your MCP client
           </TremorTitle>
           <TremorText className="text-lg text-gray-600">
-            Use tools directly from any MCP client with LiteLLM MCP. Enable your AI assistant to perform real-world tasks through a simple, secure connection.
+            Use tools directly from any MCP client with Voyager AI MCP. Enable your AI assistant to perform real-world tasks through a simple, secure connection.
           </TremorText>
         </div>
 
