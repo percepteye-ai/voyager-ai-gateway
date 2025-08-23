@@ -45,13 +45,13 @@ This creates two files:
 - View **public key** (safe to share, copy this into VM):
 
   ```bash
-  cat ~/.ssh/id_ed25519_gcp_vm.pub
+  cat <FILE_PATH>/id_ed25519_gcp_vm.pub
   ```
 
 - View **private key** (⚠️ keep secret, only paste into GitHub Secrets):
 
   ```bash
-  cat ~/.ssh/id_ed25519_gcp_vm
+  cat <FILE_PATH>/id_ed25519_gcp_vm
   ```
 
 ---
