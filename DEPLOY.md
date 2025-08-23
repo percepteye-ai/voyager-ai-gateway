@@ -67,8 +67,8 @@ sudo usermod -aG docker $USER
 ## 2. Clone the repository on the VM
 
 ```bash
-git clone -b release/prod git@github.com:percepteye-ai/voyager-ai-gateway.git
-cd voyager-ai-gateway
+git clone -b release/prod git@github.com:percepteye-ai/gateway.git
+cd gateway
 ```
 
 ---
@@ -78,7 +78,7 @@ cd voyager-ai-gateway
 Upload your `.env` file into the project:
 
 ```bash
-mv .env voyager-ai-gateway/
+mv .env gateway/
 ```
 
 ---
@@ -126,7 +126,7 @@ curl --insecure --location 'https://<EXTERNAL_IP>/chat/completions' \
 When new code is pushed:
 
 ```bash
-cd voyager-ai-gateway
+cd gateway
 git pull origin release/prod
 sudo docker compose up -d --build
 ```
