@@ -18,11 +18,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.VM_SSH_KEY }}
 
+      - name: Copy .env to VM
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} "mkdir -p ~/gateway"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} "cat > ~/gateway/.env" << 'EOT'
+          ${{ secrets.ENV_FILE }}
+          EOT
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} "chmod 600 ~/gateway/.env"
+
       - name: Deploy on VM
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
             set -e
-            cd ~/voyager-ai-gateway
+            cd ~/gateway
             git fetch --all
             git reset --hard origin/release/prod
             sudo docker compose -f docker-compose.prod.yml down

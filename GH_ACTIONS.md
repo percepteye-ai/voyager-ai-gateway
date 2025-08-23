@@ -59,7 +59,7 @@ cat ~/.ssh/id_ed25519_gcp_vm.pub
 2. SSH into your VM using password:
 
 ```bash
-gcloud compute ssh --zone "us-east1-d" "voyager-ai-gateway" --project "stellar-smoke-468717-t0"
+gcloud compute ssh --zone "us-east1-d" "gateway" --project "stellar-smoke-468717-t0"
 ```
 
 3. Create `.ssh` directory (if it doesn’t exist):
@@ -96,7 +96,7 @@ ssh -i ~/.ssh/id_ed25519_gcp_vm VM_USER@VM_IP
 ```
 
 - `VM_USER` → your VM username (check with `whoami` on VM)
-- `VM_IP` → external IP of your VM (get with `gcloud compute instances describe voyager-ai-gateway --zone "us-east1-d" --project "stellar-smoke-468717-t0" --format='get(networkInterfaces[0].accessConfigs[0].natIP)'`)
+- `VM_IP` → external IP of your VM (get with `gcloud compute instances describe gateway --zone "us-east1-d" --project "stellar-smoke-468717-t0" --format='get(networkInterfaces[0].accessConfigs[0].natIP)'`)
 
 ---
 
@@ -109,6 +109,7 @@ Go to **Repo → Settings → Secrets and variables → Actions → New reposito
 | `VM_SSH_KEY` | Private key content (`~/.ssh/id_ed25519_gcp_vm`) |
 | `VM_USER`    | Your VM username                                 |
 | `VM_HOST`    | External IP of your VM                           |
+| `ENV_FILE`   | Contents of .env file                            |
 
 ---
 
