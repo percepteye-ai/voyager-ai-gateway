@@ -1,3 +1,7 @@
+Here’s your updated README with clear instructions about **adding the public key via the VM instance metadata**, which avoids overwriting issues and ensures GitHub Actions works reliably:
+
+---
+
 # 🚀 CI/CD Setup for GCP VM with Docker Compose via GitHub Actions
 
 This guide explains how to set up **continuous deployment** for a Docker Compose application running on a **GCP VM**, using **GitHub Actions**. The workflow builds and deploys the application directly on the VM whenever code is pushed to the `release/prod` branch.
@@ -15,25 +19,23 @@ This guide explains how to set up **continuous deployment** for a Docker Compose
 
 ## 2. Generate SSH Keys (on your local machine)
 
-Run:
-
 ```bash
 ssh-keygen -t ed25519 -C "github-cicd"
 ```
 
-When prompted:
+- When prompted:
 
 ```
 Enter file in which to save the key (/Users/nitish/.ssh/id_ed25519):
 ```
 
-➡️ Enter a unique filename to avoid overwriting existing keys, e.g.:
+- Enter a **unique filename** to avoid overwriting existing keys, e.g.:
 
 ```
 /Users/nitish/.ssh/id_ed25519_gcp_vm
 ```
 
-This creates two files:
+This creates:
 
 - **Private key**: `~/.ssh/id_ed25519_gcp_vm`
 - **Public key**: `~/.ssh/id_ed25519_gcp_vm.pub`
@@ -42,75 +44,46 @@ This creates two files:
 
 ## 3. View the Keys
 
-- View **public key** (safe to share, copy this into VM):
+- **Public key** (safe to share, copy this into VM metadata):
 
-  ```bash
-  cat <FILE_PATH>/id_ed25519_gcp_vm.pub
-  ```
+```bash
+cat ~/.ssh/id_ed25519_gcp_vm.pub
+```
 
-- View **private key** (⚠️ keep secret, only paste into GitHub Secrets):
+- **Private key** (⚠️ keep secret, only paste into GitHub Secrets):
 
-  ```bash
-  cat <FILE_PATH>/id_ed25519_gcp_vm
-  ```
+```bash
+cat ~/.ssh/id_ed25519_gcp_vm
+```
 
 ---
 
-## 4. Add Public Key to VM
+## 4. Add Public Key to GCP VM Instance (Persistent Method)
 
-### Option 1: Using `ssh-copy-id` (easiest)
+> ⚠️ Do **not** manually edit `authorized_keys`. GCP automatically overwrites it. Use metadata for persistent keys.
 
-```bash
-ssh-copy-id -i ~/.ssh/id_ed25519_gcp_vm.pub VM_USER@VM_IP
-```
+1. Go to **Google Cloud Console → Compute Engine → VM Instances**.
+2. Click on your VM → **Edit** → **SSH Keys** → **Add item**.
+3. Paste the **contents of your public key** (`id_ed25519_gcp_vm.pub`).
+4. Save.
 
-### Option 2: Manual method
-
-1. Print the public key:
-
-   ```bash
-   cat ~/.ssh/id_ed25519_gcp_vm.pub
-   ```
-
-2. SSH into your VM:
-
-```bash
-gcloud compute ssh --zone "us-east1-d" "gateway" --project "stellar-smoke-468717-t0"
-```
-
-3. Create `.ssh` folder (if not exists):
-
-   ```bash
-   mkdir -p ~/.ssh
-   chmod 700 ~/.ssh
-   ```
-
-4. Add the public key to `authorized_keys`:
-
-   ```bash
-   nano ~/.ssh/authorized_keys
-   ```
-
-   Paste the key, save (`CTRL+O`, Enter, `CTRL+X`).
-
-5. Set proper permissions:
-
-   ```bash
-   chmod 600 ~/.ssh/authorized_keys
-   ```
+✅ This key is now **permanently recognized by the VM**, even after restarts or deployments.
 
 ---
 
 ## 5. Test SSH Access
 
-From your local machine, run:
+From your local machine:
 
 ```bash
-ssh -i ~/.ssh/id_ed25519_gcp_vm VM_USER@VM_IP
+ssh -i ~/.ssh/id_ed25519_gcp_vm github-cicd@VM_IP
 ```
 
 - `VM_USER` → your VM username (check with `whoami` on VM)
-- `VM_IP` → external IP of your VM (get with `gcloud compute instances describe gateway --zone "us-east1-d" --project "stellar-smoke-468717-t0" --format='get(networkInterfaces[0].accessConfigs[0].natIP)'`)
+
+- `VM_IP` → external IP of your VM (get with \`gcloud compute instances describe gateway --zone "us-east1-d" --project "stellar-smoke-468717-t0" --format='get(networkInterfaces\[0].accessConfigs\[0].natIP)')
+
+- If it connects without asking for a password, the key works.
 
 ---
 
@@ -123,12 +96,12 @@ Go to **Repo → Settings → Secrets and variables → Actions → New reposito
 | `VM_SSH_KEY` | Private key content (`~/.ssh/id_ed25519_gcp_vm`) |
 | `VM_USER`    | Your VM username                                 |
 | `VM_HOST`    | External IP of your VM                           |
-| `ENV_FILE`   | Contents of .env file                            |
+| `ENV_FILE`   | Contents of `.env` file                          |
 
 ---
 
 ## ✅ Workflow Summary
 
-1. **Trigger** – Runs when code is pushed to `release/prod`.
-2. **SSH Setup** – GitHub Actions connects to VM using your SSH private key stored in secrets.
-3. **Deployment** – Fetches latest code, rebuilds Docker containers, restarts app.
+1. **Trigger** – Runs on push to `release/prod` or manually via workflow dispatch.
+2. **SSH Setup** – GitHub Actions connects to VM using the SSH private key stored in secrets.
+3. **Deployment** – Fetches latest code, deploys `.env`, rebuilds Docker containers, restarts app.
