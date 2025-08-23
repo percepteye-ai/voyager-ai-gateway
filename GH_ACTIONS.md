@@ -127,45 +127,6 @@ Go to **Repo → Settings → Secrets and variables → Actions → New reposito
 
 ---
 
-## 7. GitHub Actions Workflow
-
-Create `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to GCP VM
-
-on:
-  push:
-    branches: ["release/prod"]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.VM_SSH_KEY }}
-
-      - name: Deploy on VM
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
-            set -e
-            cd ~/your-app-folder   # <-- replace with your actual app path
-            git fetch --all
-            git reset --hard origin/release/prod
-            docker compose -f docker-compose.prod.yml down
-            docker compose -f docker-compose.prod.yml build --no-cache
-            docker compose -f docker-compose.prod.yml up -d
-          EOF
-```
-
----
-
 ## ✅ Workflow Summary
 
 1. **Trigger** – Runs when code is pushed to `release/prod`.
