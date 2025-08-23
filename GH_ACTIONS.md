@@ -20,7 +20,7 @@ This guide explains how to set up **continuous deployment** for a Docker Compose
 ## 2. Generate SSH Keys (on your local machine)
 
 ```bash
-ssh-keygen -t ed25519 -C "admin"
+ssh-keygen -t ed25519 -C "github-cicd"
 ```
 
 - When prompted:
@@ -64,7 +64,7 @@ cat ~/.ssh/id_ed25519_gcp_vm
 
 1. Go to **Google Cloud Console → Compute Engine → VM Instances**.
 2. Click on your VM → **Edit** → **SSH Keys** → **Add item**.
-3. Paste the **contents of your public key** (`id_ed25519_gcp_vm.pub`).
+3. Paste the **contents of your public key** (`id_ed25519_gcp_vm.pub`). Prepend 'nitish:' to the public key when pasting.
 4. Save.
 
 ✅ This key is now **permanently recognized by the VM**, even after restarts or deployments.
@@ -76,12 +76,12 @@ cat ~/.ssh/id_ed25519_gcp_vm
 From your local machine:
 
 ```bash
-ssh -i ~/.ssh/id_ed25519_gcp_vm admin@VM_IP
+ssh -i ~/.ssh/id_ed25519_gcp_vm github-cicd@VM_IP
 ```
 
-- `VM_USER` → 'admin'
+- `VM_USER` → your VM username (check with `whoami` on VM)
 
-- `VM_IP` → external IP of your VM
+- `VM_IP` → external IP of your VM (get with \`gcloud compute instances describe gateway --zone "us-east1-d" --project "stellar-smoke-468717-t0" --format='get(networkInterfaces\[0].accessConfigs\[0].natIP)')
 
 - If it connects without asking for a password, the key works.
 
@@ -94,7 +94,7 @@ Go to **Repo → Settings → Secrets and variables → Actions → New reposito
 | Secret Name  | Value                                            |
 | ------------ | ------------------------------------------------ |
 | `VM_SSH_KEY` | Private key content (`~/.ssh/id_ed25519_gcp_vm`) |
-| `VM_USER`    | admin                                            |
+| `VM_USER`    | Your VM username                                 |
 | `VM_HOST`    | External IP of your VM                           |
 | `ENV_FILE`   | Contents of `.env` file                          |
 
